@@ -1,0 +1,37 @@
+class Solution {
+    public String[] shortestSubstrings(String[] arr) {
+        String[] answer=new String[arr.length];
+        for(int i=0;i<arr.length;i++){
+            
+            HashSet<String> set=new HashSet<>();
+            for(int m=0;m<arr.length;m++){
+                if(m==i) continue;
+                for(int n=0;n<arr[m].length();n++){
+                    for(int k=n;k<arr[m].length();k++){
+                        set.add(arr[m].substring(n,k+1));
+                    }
+                }
+            }
+            
+            String str="";
+            for(int j=0;j<arr[i].length();j++){
+                for(int x=j;x<arr[i].length();x++){
+                    String sub=arr[i].substring(j,x+1);
+                    if(!set.contains(sub) ){
+                        if(str.equals(""))
+                            str=sub;
+                        else if(sub.length()<str.length())
+                            str=sub;
+                        else if(sub.length()==str.length()){
+                            int z=sub.compareTo(str);
+                            if(z<0)
+                                str=sub;
+                        }
+                    }
+                }
+            }
+            answer[i]=str;
+        }
+        return answer;
+    }
+}
